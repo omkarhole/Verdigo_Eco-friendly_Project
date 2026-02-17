@@ -511,7 +511,7 @@ const Dashboard = () => {
                     {stat.change}
                   </span>
                 </div>
-                <h3 className="text-3xl font-extrabold text-foreground mb-1 group-hover:scale-110 transition-transform duration-300 origin-left">
+                <h3 className="text-3xl dark:text-black font-extrabold text-foreground mb-1 group-hover:scale-110 transition-transform duration-300 origin-left">
                   {stat.value}
                 </h3>
                 <p className="text-muted-foreground font-semibold group-hover:text-foreground transition-colors duration-300">
