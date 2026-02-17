@@ -41,7 +41,7 @@ const Navbar = () => {
         <ul className="hidden md:flex space-x-10 font-medium text-sm tracking-wide">
           {[
             { name: "Home", action: () => window.scrollTo({ top: 0, behavior: "smooth" }) },
-            { name: "Features", action: () => handleScroll("features-section") },
+            { name: "Features", action: () => navigate("/features") },
             { name: "Pricing", action: () => handleScroll("pricing-section") },
             { name: "FAQs", action: () => handleScroll("faqs-section") },
             { name: "Contact", action: () => handleScroll("contact-section") },
