@@ -48,9 +48,23 @@ import FeatureCard from "../components/FeatureCard";
 import ThemeToggle from "../components/ThemeToggle";
 import MobileNav from "../components/MobileNav";
 import Navbar from "../components/Navbar";
+
 const LandingPage = () => {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
+  const [showContactSales, setShowContactSales] = useState(false);
+  const [contactSalesSubmitted, setContactSalesSubmitted] = useState(false);
+
+  const handleContactSalesOpen = () => {
+    setShowContactSales(true);
+    setContactSalesSubmitted(false);
+  };
+  const handleContactSalesClose = () => setShowContactSales(false);
+
+  const handleContactSalesSubmit = (e) => {
+    e.preventDefault();
+    setContactSalesSubmitted(true);
+  };
 
   const features = [
     {
@@ -522,7 +536,171 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* Pricing Section */}
+<section
+  id="pricing-section"
+  className="container mx-auto px-6 py-24"
+>
+  <div className="max-w-6xl mx-auto">
+    <div className="text-center mb-20">
+      <h3 className="text-5xl font-bold mb-6">
+        Choose Your{" "}
+        <span className="bg-gradient-to-r from-emerald-500 via-green-400 to-teal-500 bg-clip-text text-transparent">
+          Green Plan
+        </span>
+      </h3>
+      <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+        Flexible pricing designed to support individuals, families,
+        and communities on their sustainability journey.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+      {/* FREE PLAN */}
+      <div className="group relative bg-white/80 backdrop-blur-xl rounded-3xl p-10 border border-emerald-100 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
+
+        <h4 className="text-2xl font-bold text-emerald-600 mb-4">
+          Free
+        </h4>
+
+        <p className="text-gray-600 mb-8">
+          Perfect to begin your eco journey.
+        </p>
+
+        <div className="text-5xl font-extrabold text-gray-900 mb-6">
+          $0
+        </div>
+
+        <ul className="space-y-3 text-gray-600 mb-8">
+          <li>✓ Carbon footprint calculator</li>
+          <li>✓ Air quality monitoring</li>
+          <li>✓ Waste tracking</li>
+          <li>✓ Community access</li>
+        </ul>
+
+        <button
+          onClick={() => navigate("/signup")}
+          className="w-full py-4 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-600 transition-all duration-300 hover:shadow-lg"
+        >
+          Get Started
+        </button>
+      </div>
+
+      {/* PREMIUM PLAN (Most Popular) */}
+      <div className="group relative bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl p-10 text-white shadow-2xl scale-105 hover:scale-110 transition-all duration-500">
+
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-gray-900 text-sm font-bold px-4 py-1 rounded-full shadow-md">
+          MOST POPULAR
+        </div>
+
+        <h4 className="text-2xl font-bold mb-4">
+          Premium
+        </h4>
+
+        <p className="text-emerald-100 mb-8">
+          Advanced analytics & unlimited tracking
+        </p>
+
+        <div className="text-5xl font-extrabold mb-6">
+          $4.99
+          <span className="text-lg font-medium">/month</span>
+        </div>
+
+        <ul className="space-y-3 mb-8 text-emerald-100">
+          <li>✓ All Free features</li>
+          <li>✓ Unlimited data history</li>
+          <li>✓ Personalized eco-tips</li>
+          <li>✓ Priority support</li>
+        </ul>
+
+        <button
+          onClick={() => navigate("/checkout")}
+          className="w-full py-4 rounded-xl bg-white text-emerald-600 font-semibold hover:bg-gray-100 transition-all duration-300 hover:shadow-lg"
+        >
+          Buy Now
+        </button>
+      </div>
+
+      {/* COMMUNITY PLAN */}
+      <div className="group relative bg-white/80 backdrop-blur-xl rounded-3xl p-10 border border-yellow-200 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
+
+        <h4 className="text-2xl font-bold text-yellow-600 mb-4">
+          Community
+        </h4>
+
+        <p className="text-gray-600 mb-8">
+          Ideal for NGOs, schools & organizations.
+        </p>
+
+        <div className="text-5xl font-extrabold text-gray-900 mb-6">
+          Custom
+        </div>
+
+        <ul className="space-y-3 text-gray-600 mb-8">
+          <li>✓ All Premium features</li>
+          <li>✓ Group analytics dashboard</li>
+          <li>✓ Custom eco challenges</li>
+          <li>✓ Dedicated onboarding</li>
+        </ul>
+
+        <button
+          onClick={handleContactSalesOpen}
+          className="w-full py-4 rounded-xl bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition-all duration-300 hover:shadow-lg"
+        >
+          Contact Sales
+        </button>
+      </div>
+
+      {/* Contact Sales Popup */}
+      {showContactSales && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md relative">
+            <button
+              onClick={handleContactSalesClose}
+              className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl font-bold"
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <h3 className="text-2xl font-bold mb-4 text-yellow-600">Contact Sales</h3>
+            {contactSalesSubmitted ? (
+              <div className="text-center py-8">
+                <div className="text-3xl mb-4">🎉</div>
+                <div className="text-lg font-semibold text-emerald-700 mb-2">Thank you!</div>
+                <div className="text-gray-700">Our team will contact you as soon as possible.</div>
+              </div>
+            ) : (
+              <form className="space-y-4" onSubmit={handleContactSalesSubmit}>
+                <div>
+                  <label className="block text-gray-700 font-semibold mb-1">Name</label>
+                  <input type="text" className="w-full border rounded-lg px-3 py-2" placeholder="Your Name" required />
+                </div>
+                <div>
+                  <label className="block text-gray-700 font-semibold mb-1">Email</label>
+                  <input type="email" className="w-full border rounded-lg px-3 py-2" placeholder="you@email.com" required />
+                </div>
+                <div>
+                  <label className="block text-gray-700 font-semibold mb-1">Organization</label>
+                  <input type="text" className="w-full border rounded-lg px-3 py-2" placeholder="Company/School/NGO" />
+                </div>
+                <div>
+                  <label className="block text-gray-700 font-semibold mb-1">Message</label>
+                  <textarea className="w-full border rounded-lg px-3 py-2" rows="3" placeholder="How can we help you?" required></textarea>
+                </div>
+                <button type="submit" className="w-full py-3 rounded-xl bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition-all duration-300 mt-2">Send</button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+
+    </div>
+  </div>
+</section>
+
+
+      
       <section id="faqs-section" className="container mx-auto px-6 py-20">
         <div data-aos="fade-in" className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
