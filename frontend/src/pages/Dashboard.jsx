@@ -191,6 +191,7 @@ import EcoTipsCarousel from "@/components/EcoTipsCarousel";
 import { calculateBadges } from "@/utils/badges";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Footer from "@/components/Footer";
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -799,6 +800,9 @@ const Dashboard = () => {
           </div>
         </div>
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

@@ -17,6 +17,7 @@ import AOS from "aos";
 import Feedback from "./pages/Feedback";
 import "aos/dist/aos.css";
 import TermsOfService from "./pages/TermsOfService";
+
 import AboutUs from "./pages/AboutUs";
 import NotFound from "./pages/NotFound";
 
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route
               path="/dashboard/carbon-footprint-calculator"
               element={<CarbonFootprintCalculator />}

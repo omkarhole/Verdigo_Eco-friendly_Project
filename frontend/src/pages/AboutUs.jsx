@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Leaf,
   LogOut,
@@ -397,18 +397,18 @@ const AboutUs = () => {
               time.
             </p>
             <div className="flex space-x-6 text-sm">
-              <a
-                href="#"
+              <Link
+                to="/privacy-policy"
                 className="text-gray-400 hover:text-emerald-400 transition-colors duration-200"
               >
                 Privacy Policy
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/terms-of-service"
                 className="text-gray-400 hover:text-emerald-400 transition-colors duration-200"
               >
                 Terms of Service
-              </a>
+              </Link>
               <a
                 href="#"
                 className="text-gray-400 hover:text-emerald-400 transition-colors duration-200"
