@@ -146,7 +146,7 @@
 // };
 
 // export default Dashboard;
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Leaf,
@@ -180,6 +180,8 @@ import {
   GlobeLock,
   Calculator,
   Sparkles,
+  Menu,
+  X,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import WeatherCard from "@/components/weatherCard";
@@ -196,6 +198,7 @@ import Footer from "@/components/Footer";
 const Dashboard = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     AOS.init({
@@ -406,7 +409,7 @@ const Dashboard = () => {
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent hover:from-cyan-600 hover:via-teal-600 hover:to-emerald-600 transition-all duration-500">
                   VerdiGo
                 </h1>
-                <p className="text-sm text-muted-foreground font-medium">
+                <p className="text-sm text-muted-foreground font-medium hidden sm:block">
                   Welcome back,{" "}
                   <span className="text-emerald-600 font-semibold">
                     {user?.name || "Eco Warrior"}
@@ -415,7 +418,9 @@ const Dashboard = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
+
+            {/* Desktop Navigation - Hidden on Mobile */}
+            <div className="hidden lg:flex items-center space-x-3">
               <button className="relative p-3 bg-gradient-to-r from-rose-50 to-pink-50 dark:from-rose-950/30 dark:to-pink-950/30 text-rose-600 hover:from-rose-100 hover:to-pink-100 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-rose-500/20 group">
                 <Bell className="w-5 h-5 group-hover:animate-bounce" />
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-red-500 to-rose-500 rounded-full text-[10px] text-white flex items-center justify-center font-bold animate-pulse">
@@ -437,7 +442,68 @@ const Dashboard = () => {
                 <span className="font-semibold">Logout</span>
               </button>
             </div>
+
+            {/* Mobile Menu Toggle Button */}
+            <div className="flex lg:hidden items-center space-x-2">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-3 text-muted-foreground hover:text-emerald-600 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-teal-50 dark:hover:from-emerald-950/30 dark:hover:to-teal-950/30 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-emerald-500/20"
+                aria-label="Toggle mobile menu"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </button>
+            </div>
           </div>
+
+          {/* Mobile Menu Dropdown */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden mt-4 pt-4 border-t border-border/50 animate-in slide-in-from-top duration-300">
+              <div className="flex flex-col space-y-3">
+                <button className="relative flex items-center justify-between p-3 bg-gradient-to-r from-rose-50 to-pink-50 dark:from-rose-950/30 dark:to-pink-950/30 text-rose-600 hover:from-rose-100 hover:to-pink-100 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-rose-500/20 group">
+                  <div className="flex items-center space-x-3">
+                    <Bell className="w-5 h-5" />
+                    <span className="font-semibold">Notifications</span>
+                  </div>
+                  <span className="w-6 h-6 bg-gradient-to-r from-red-500 to-rose-500 rounded-full text-xs text-white flex items-center justify-center font-bold">
+                    3
+                  </span>
+                </button>
+
+                <button className="flex items-center space-x-3 p-3 text-muted-foreground hover:text-blue-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50 dark:hover:from-blue-950/30 dark:hover:to-cyan-950/30 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+                  <Settings className="w-5 h-5" />
+                  <span className="font-semibold">Settings</span>
+                </button>
+
+                <button className="flex items-center space-x-3 p-3 text-muted-foreground bg-gradient-to-r from-slate-100 to-gray-100 dark:from-slate-800 dark:to-gray-800 hover:from-violet-50 hover:to-purple-50 dark:hover:from-violet-950/30 dark:hover:to-purple-950/30 hover:text-violet-600 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/20">
+                  <User className="w-5 h-5" />
+                  <span className="font-semibold">Profile</span>
+                </button>
+
+                {/* Theme Controls Section */}
+                <div className="pt-3 border-t border-border/50">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">Appearance</p>
+                  <div className="flex flex-col space-y-3">
+                    {/* Full ThemeToggle Component */}
+                    <div className="p-3 bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-800/50 dark:to-gray-800/50 rounded-xl border border-border/50">
+                      <ThemeToggle />
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center space-x-3 p-3 text-red-600 bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-950/30 dark:to-rose-950/30 hover:from-red-100 hover:to-rose-100 dark:hover:from-red-900/40 dark:hover:to-rose-900/40 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-red-500/20 group mt-3 border-t border-border/50 pt-6"
+                >
+                  <LogOut className="w-5 h-5" />
+                  <span className="font-semibold">Logout</span>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 
@@ -512,7 +578,7 @@ const Dashboard = () => {
                     {stat.change}
                   </span>
                 </div>
-                <h3 className="text-3xl font-extrabold text-foreground mb-1 group-hover:scale-110 transition-transform duration-300 origin-left">
+                <h3 className="text-3xl dark:text-black font-extrabold text-foreground mb-1 group-hover:scale-110 transition-transform duration-300 origin-left">
                   {stat.value}
                 </h3>
                 <p className="text-muted-foreground font-semibold group-hover:text-foreground transition-colors duration-300">
@@ -710,9 +776,9 @@ const Dashboard = () => {
                     <div
                       className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-white shadow-lg group-hover:scale-125 group-hover:rotate-6 group-hover:shadow-xl transition-all duration-500 relative z-10 ${
                         item.completed
-                          ? "bg-gradient-to-br from-green-500 via-emerald-500 to-teal-600 group-hover:from-green-400 group-hover:via-emerald-400 group-hover:to-teal-500"
-                          : `bg-gradient-to-br ${item.color}`
-                      }`}
+                        ? "bg-gradient-to-br from-green-500 via-emerald-500 to-teal-600 group-hover:from-green-400 group-hover:via-emerald-400 group-hover:to-teal-500"
+                        : `bg-gradient-to-br ${item.color}`
+                        }`}
                     >
                       {item.completed ? (
                         <CheckCircle className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
