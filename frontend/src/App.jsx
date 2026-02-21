@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
@@ -20,6 +21,8 @@ import TermsOfService from "./pages/TermsOfService";
 import AboutUs from "./pages/AboutUs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Features from "./pages/Features";
+import NotFound from "./pages/NotFound";
+
 
 const App = () => {
   useEffect(() => {
@@ -52,7 +55,7 @@ const App = () => {
               path="/dashboard/carbon-footprint-calculator"
               element={<CarbonFootprintCalculator />}
             />
-            <Route path="/features" element={<Features />} />
+             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

@@ -47,15 +47,11 @@ const LoginPage = () => {
     setIsLoading(true);
 
     try {
-      const success = await login(formData.email, formData.password);
-      if (success) {
-        navigate("/dashboard");
-      } else {
-        setErrors({ general: "Invalid email or password. Please try again." });
-      }
+      await login(formData.email, formData.password);
+      navigate("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
-      setErrors({ general: "An error occurred. Please try again." });
+      setErrors({ general: error.message || "An error occurred. Please try again." });
     } finally {
       setIsLoading(false);
     }
